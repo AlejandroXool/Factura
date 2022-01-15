@@ -33,6 +33,8 @@ public class Producto {
 	@Stereotype("TEXTO_GRANDE")
 	String observaciones;
 	
-	
-	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@DescriptionsList
+	Autor autor;
+			
 }

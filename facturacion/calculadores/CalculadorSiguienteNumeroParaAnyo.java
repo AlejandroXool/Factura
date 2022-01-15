@@ -7,7 +7,7 @@ import org.openxava.jpa.*;
 
 import lombok.*;
 
-public class CalculadorSiguienteNumeroParaAnyo 
+public class CalculadorSiguienteNumeroParaAnyo
 implements ICalculator {
 
 	@Getter @Setter     

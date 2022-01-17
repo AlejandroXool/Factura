@@ -1,4 +1,4 @@
-package com.tuempresa.facturacion.modelo;
+package com.tuempresa.factura.modelo;
 
 import javax.persistence.*;
 
@@ -20,4 +20,5 @@ public class Direccion {
  
     @Column(length = 30)
     String provincia;
+
 }

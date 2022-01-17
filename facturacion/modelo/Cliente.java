@@ -1,4 +1,4 @@
-package com.tuempresa.facturacion.modelo;
+package com.tuempresa.factura.modelo;
 
 import javax.persistence.*;
 

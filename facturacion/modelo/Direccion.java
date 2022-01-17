@@ -1,15 +1,14 @@
-package com.tuempresa.factura.modelo;
-
+package com.tuempresa.facturacion.modelo;
+ 
 import javax.persistence.*;
 
 import lombok.*;
-
+ 
 @Embeddable 
 @Getter @Setter
 public class Direccion {
-
-	
-	@Column(length = 30) 
+ 
+    @Column(length = 30) 
     String viaPublica;
  
     @Column(length = 5)
@@ -20,5 +19,5 @@ public class Direccion {
  
     @Column(length = 30)
     String provincia;
-
+ 
 }

@@ -1,5 +1,5 @@
-package com.tuempresa.factura.modelo;
-
+package com.tuempresa.facturacion.modelo;
+ 
 import java.util.*;
 
 import javax.persistence.*;
@@ -7,28 +7,23 @@ import javax.persistence.*;
 import org.openxava.annotations.*;
 
 import lombok.*;
-
-@Entity
-@Getter @Setter
-
+ 
+@Entity @Getter @Setter
 @View(extendsView="super.DEFAULT", 
-members="pedidos { pedidos }" 
+	members="pedidos { pedidos }" 
 )
-@View( name="SinClienteNiPedidos",
-members=                       
-    "anyo, numero, fecha;" +   
-    "detalles;" +
-    "observaciones"
+@View( name="SinClienteNiPedidos", 
+	members=                       
+	    "anyo, numero, fecha;" +   
+	    "detalles;" +
+	    "observaciones"
 )
+@Tab(baseCondition = "eliminado = false")
+@Tab(name="Eliminado", baseCondition = "eliminado = true") 
 public class Factura extends DocumentoComercial {
-	
-	 @OneToMany(mappedBy="factura")
-	 @CollectionView("SinClienteNiFactura") // Esta vista se usa para visualizar pedidos
-	 private Collection<Pedido> pedidos;
-	
-	
-	
-	
-	
-
+ 
+    @OneToMany(mappedBy="factura")
+    @CollectionView("SinClienteNiFactura") 
+    Collection<Pedido> pedidos; 
+    
 }

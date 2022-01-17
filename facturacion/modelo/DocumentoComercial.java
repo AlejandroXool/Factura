@@ -1,5 +1,5 @@
-package com.tuempresa.factura.modelo;
-
+package com.tuempresa.facturacion.modelo;
+ 
 import java.math.*;
 import java.time.*;
 import java.util.*;
@@ -14,26 +14,20 @@ import org.openxava.jpa.*;
 import com.tuempresa.facturacion.calculadores.*;
 
 import lombok.*;
-
-
-
-@Entity @Getter @Setter
-@View (members = 
-          "anyo, numero, fecha," +
-          "datos {"+
-          "cliente;" +
-          "detalles;" +
-          "observaciones }"
-          
-          
-          
-          )
-abstract public class DocumentoComercial extends Identificable {
-	
-	
  
+@Entity @Getter @Setter
+@View(members=
+	"anyo, numero, fecha," + 
+	"datos {" + 
+	    "cliente;" +
+	    "detalles;" +
+	    "observaciones" +
+	"}"
+)
+abstract public class DocumentoComercial extends Eliminable {
+
     @Column(length=4)
-    @DefaultValueCalculator(CurrentYearCalculator.class)
+    @DefaultValueCalculator(CurrentYearCalculator.class) 
     int anyo;
  
     @Column(length=6)
@@ -91,5 +85,5 @@ abstract public class DocumentoComercial extends Identificable {
         Integer ultimoNumero = (Integer) query.getSingleResult();
         this.numero = ultimoNumero == null ? 1 : ultimoNumero + 1;
     }
-
+ 
 }

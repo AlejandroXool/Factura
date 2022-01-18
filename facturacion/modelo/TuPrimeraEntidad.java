@@ -1,4 +1,4 @@
-package com.tuempresa.factura.modelo;
+package com.tuempresa.facturacion.modelo;
 
 import java.math.*;
 import java.time.*;

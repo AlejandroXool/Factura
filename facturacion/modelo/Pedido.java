@@ -1,12 +1,17 @@
 package com.tuempresa.facturacion.modelo;
  
 import java.time.*;
+import java.util.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.apache.commons.beanutils.*;
 import org.openxava.annotations.*;
+import org.openxava.jpa.*;
 import org.openxava.util.*;
+
+import com.tuempresa.facturacion.acciones.*;
 
 import lombok.*;
  
@@ -28,6 +33,7 @@ public class Pedido extends DocumentoComercial {
  
     @ManyToOne
     @ReferenceView("SinClienteNiPedidos") 
+    @OnChange(MostrarOcultarCrearFactura.class)
     Factura factura; 
     
     @Column(columnDefinition="INTEGER DEFAULT 1")
@@ -44,6 +50,7 @@ public class Pedido extends DocumentoComercial {
     }
     
     @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+    @OnChange(MostrarOcultarCrearFactura.class)
     boolean entregado;
     
     public void setEliminado(boolean eliminado) {
@@ -69,6 +76,37 @@ public class Pedido extends DocumentoComercial {
                     "no_puede_borrar_pedido_con_factura"));
         }
     }
-    
+        
+        public void crearFactura()
+            throws CrearFacturaException 
+        	 {
+        	     if (this.factura != null) { 
+        	         throw new CrearFacturaException( 
+        	             "pedido_ya_tiene_factura"); 
+        	     }
+        	     if (!isEntregado()) { 
+        	         throw new CrearFacturaException("pedido_no_entregado");
+        	     }
+        	     try {
+        	         Factura factura = new Factura(); 
+        	         BeanUtils.copyProperties(factura, this); 
+        	         factura.setOid(null); 
+        	         factura.setFecha(LocalDate.now()); 
+        	         factura.setDetalles(new ArrayList<>(getDetalles())); 
+        	         XPersistence.getManager().persist(factura);
+        	         this.factura = factura; 
+        	     }
+        	     catch (Exception ex) { 
+        	         throw new SystemException( 
+        	             "imposible_crear_factura", ex);
+        	     }
+        	 }
+        
+        public void copiarDetallesAFactura() { 
+            factura.getDetalles().addAll(getDetalles());
+            factura.setIva(factura.getIva().add(getIva()));
+            factura.setImporteTotal( 
+    		    factura.getImporteTotal().add(getImporteTotal()));
+        }
 }
 

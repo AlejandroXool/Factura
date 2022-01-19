@@ -53,7 +53,11 @@
 		<accion nombre="crearFacturaDesdePedidosSeleccionados"
         modo="list"
         clase="com.tuempresa.facturacion.acciones.CrearFacturaDesdePedidosSeleccionados"/>
-
+        
+         <accion nombre="buscarFactura"
+        clase="com.tuempresa.facturacion.acciones.BuscarFacturaDesdePedido"
+        oculta="true" icono="magnify"/>
+        
 </controlador>
 
     <controlador nombre="EdicionFactura">
@@ -66,5 +70,21 @@
         clase="org.openxava.actions.CancelAction"/>
 		
 </controlador>
+
+     <controlador nombre="Factura">
+    <hereda-de controlador="Facturacion"/>
+
+    <accion nombre="anyadirPedidos"
+        clase="com.tuempresa.facturacion.acciones.IrAnyadirPedidosAFactura"
+        oculta="true" icono="table-row-plus-after"/>
+        
+        </controlador>
+        
+    <controlador nombre="AnyadirPedidosAFactura">
+    <hereda-de controlador="AddToCollection" /> 
+    <accion nombre="add"
+        clase="com.tuempresa.facturacion.acciones.AnyadirPedidosAFactura" />
+        
+        </controlador> 
     
 </controladores>

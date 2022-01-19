@@ -26,10 +26,12 @@ import lombok.*;
 )
 abstract public class DocumentoComercial extends Eliminable {
 
+	@SearchKey
     @Column(length=4)
     @DefaultValueCalculator(CurrentYearCalculator.class) 
     int anyo;
  
+	@SearchKey
     @Column(length=6)
     @ReadOnly
     int numero;
